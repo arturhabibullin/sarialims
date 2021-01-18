@@ -1,0 +1,38 @@
+
+<ul>
+    {{ sample.sample }}
+    <li>
+        Дата производства: {{ sample.date_production }}
+    </li>
+    <li>
+        {{ sample.company }}
+    </li>
+    <li>
+        {{ sample.material_type }} {{ sample.product }}
+    </li>
+    
+    <li>
+        {% for category in sample.category.all %}
+                {{ category.name }}
+        {% endfor %}
+    </li>
+    
+    {% if sample.bb_from or sample.bb_to  %}
+    <li>
+        Б.Б: {{ sample.bb_from|default_if_none:"" }} -
+        {{ sample.bb_to|default_if_none:"" }}
+    </li>
+    {% endif %}
+        
+    
+    {% if sample.pallet_from or sample.pallet_to  %}
+    <li>
+        паллеты: {{ sample.pallet_from|default_if_none:"" }} -
+        {{ sample.pallet_to|default_if_none:"" }}
+    </li>
+    {% endif %}
+        
+    <li>
+        {{ sample.date_registration }}
+    </li>
+</ul>

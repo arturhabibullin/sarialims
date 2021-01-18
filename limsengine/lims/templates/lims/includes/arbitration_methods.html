@@ -1,0 +1,48 @@
+{% for sample in sample.ffas.all %}
+     {% if sample.value %}
+        <p class="card-text">
+            FFA({{ sample.date_pub }}) = {{ sample.value }}
+        </p>
+    {% endif %}        
+{% endfor %}
+
+{% for sample in sample.proteins.all %}
+     {% if sample.value %}
+        <p class="card-text">
+            Protein({{ sample.date_pub }}) = {{ sample.value }}
+        </p>
+    {% endif %}        
+{% endfor %}
+
+
+{% for sample in sample.fats.all %}
+    {% if sample.value %}
+        <p class="card-text">
+            Fat({{ sample.date_pub }}) = {{ sample.value }}
+        </p>
+    {% endif %}
+{% endfor %}
+
+{% for sample in sample.ashs.all %}
+    {% if sample.value %}
+        <p class="card-text">
+           Ash({{ sample.date_pub }}) = {{ sample.value }}
+        </p>
+    {% endif %}
+{% endfor %}
+
+{% for sample in sample.moistures.all %}
+    {% if sample.value %}
+        <p class="card-text">
+           Moisture({{ sample.date_pub }}) = {{ sample.value }}
+        </p>
+    {% endif %}
+{% endfor %}
+
+{% for sample in sample.aoks.all %}
+    {% if sample.value %}
+        <p class="card-text">
+           Aoks({{ sample.date_pub }}) = {{ sample.value }}
+        </p>
+    {% endif %}
+{% endfor %}

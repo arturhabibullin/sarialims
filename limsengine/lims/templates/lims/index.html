@@ -1,0 +1,30 @@
+{% extends 'lims/base_lims.html' %}
+
+{% block title %}
+    blockname
+{% endblock title %}
+
+
+{% block content %}
+  {% for sample in samples %}
+    <div class="card text-white bg-dark mb-3">
+      <div class="card-header">
+        {% include 'lims/includes/sample_description.html' %}
+      </div>
+      <div class="card-body">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              {% include 'lims/includes/bruker.html' %}
+            </div>
+            <div class="col">
+              {% include 'lims/includes/arbitration_methods.html' %}
+            </div>
+          </div>
+        </div>
+        <a href="#" class="btn btn-primary">Переход куда-нибудь</a>
+      </div>
+    </div>
+  {% endfor %}
+{% endblock content %}
+  
