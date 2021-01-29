@@ -1,0 +1,18 @@
+<div class="card text-{{ sample.color.text|default:'white' }} bg-{{ sample.color.bg|default:'dark' }} mb-3">
+    <div class="card-header">
+      {% include 'lims/includes/sample_description.html' %}
+    </div>
+    <div class="card-body">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-md-6">
+            {% include 'lims/includes/bruker.html' %}
+          </div>
+          <div class="col-12 col-md-6">
+            {% include 'lims/includes/arbitration_methods.html' %}
+          </div>
+        </div>
+      </div>
+      <a href="{{ sample.get_absolute_url }}" class="btn btn-{{ sample.color.btn|default:'primary' }}">Read</a>
+    </div>
+  </div>

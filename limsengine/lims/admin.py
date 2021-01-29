@@ -6,6 +6,7 @@ admin.site.register(Company)
 admin.site.register(MaterialType)
 admin.site.register(ProductType)
 admin.site.register(Bruker)
+admin.site.register(Color)
 class SampleAdmin(admin.ModelAdmin):
     list_display = ('sample', 'date_production', 'company', 'material_type','product', 'get_categorys', 'bb_from', 'bb_to', 'pallet_from', 'pallet_to', 'date_registration','repeate', 'comment')
     ordering = ['-date_registration']

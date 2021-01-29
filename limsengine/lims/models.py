@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 
 # Create your models here.
 class Company(models.Model):
@@ -33,6 +34,9 @@ class ProductType(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True)
+
+    def get_absolute_url(self):
+        return reverse('category_detail_url', kwargs={'pk': self.pk})
     
     def __str__(self):
         return self.name
@@ -41,8 +45,23 @@ class Category(models.Model):
         verbose_name = 'Спецификация'
         verbose_name_plural = 'Спецификация'
 
+class Color(models.Model):
+    text = models.CharField(max_length=50)
+    bg = models.CharField(max_length=50)
+    btn = models.CharField(max_length=50)
+
+    title = models.CharField(max_length=50,unique=True)
+    
+    def __str__(self):
+        return self.title
+        
+    class Meta:
+        verbose_name = 'Цвет этикетки'
+        verbose_name_plural = 'Цвет этикетки'
+
 class Sample(models.Model):
     sample = models.SlugField('образец', max_length=50, unique=True)
+    color = models.ForeignKey(Color, on_delete=models.CASCADE, blank=True, null=True, verbose_name='цвет этикетки')
     date_production = models.DateField('дата производства')
     company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name='компания')
     material_type = models.ForeignKey(MaterialType, on_delete=models.CASCADE, verbose_name='вид образца')
@@ -52,9 +71,14 @@ class Sample(models.Model):
     bb_to = models.PositiveIntegerField('Б.Б по', blank=True, null=True)
     pallet_from = models.PositiveIntegerField('паллеты с', blank=True, null=True)
     pallet_to = models.PositiveIntegerField('паллеты по', blank=True, null=True)
+    description = models.TextField(max_length=200, blank=True, null=True, verbose_name='Описание')
     date_registration = models.DateTimeField('дата регистрации', auto_now_add=True)
     repeate = models.BooleanField('повтор')
+    claim = models.BooleanField('претензия')
     comment = models.TextField('комментарий', blank=True)
+
+    def get_absolute_url(self):
+        return reverse('sample_detail_url', kwargs={'pk': self.pk})
 
     def __str__(self):
         return self.sample

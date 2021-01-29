@@ -1,42 +1,50 @@
-<h5 class="card-title">Spectrometr</h5>
-<p class="card-text">
-{% for sample in sample.brukers.all %}
-    {% if sample.ffa %}
+<ul class="list-unstyled">
+    
+    {% for sample in sample.brukers.all|slice:":1" %}
+        {% if sample.date_pub %}
+            <h5 class="card-title">Спектрометр</h5>
+        
+        {% endif %}
+           
+    {% endfor %}
+        
+        {% for sample in sample.brukers.all %}
+        {% if sample.ffa %}
         <li>
-            FFA({{ sample.date_pub }}) = {{ sample.ffa }}
+            Кислотное число ({{ sample.date_pub }}) = {{ sample.ffa }}
+        </li>
+        {% endif %}
+    {% endfor %}
+
+    {% for sample in sample.brukers.all %}
+        {% if sample.protein %}
+        <li>
+            Протеин ({{ sample.date_pub }}) = {{ sample.protein }}
+        </li>
+        {% endif %}
+    {% endfor %}
+
+    {% for sample in sample.brukers.all %}
+        {% if sample.fat %}
+        <li>
+            Жир ({{ sample.date_pub }}) = {{ sample.fat }}
+        </li>
+        {% endif %}
+    {% endfor %}
+
+    {% for sample in sample.brukers.all %}
+        {% if sample.ash %}
+        <li>
+            Зола ({{ sample.date_pub }}) = {{ sample.ash }}
+        </li>
+        {% endif %}
+    {% endfor %}
+
+    {% for sample in sample.brukers.all %}
+        {% if sample.moisture %}
+        <li>
+            Влага ({{ sample.date_pub }}) = {{ sample.moisture }}
         </li>
     {% endif %}
-{% endfor %}
-
-{% for sample in sample.brukers.all %}
-    {% if sample.protein %}
-        <li>
-            Protein({{ sample.date_pub }}) = {{ sample.protein }}
-        </li>
-    {% endif %}
-{% endfor %}
-
-{% for sample in sample.brukers.all %}
-    {% if sample.fat %}
-        <li>
-            Fat({{ sample.date_pub }}) = {{ sample.fat }}
-        </li>
-    {% endif %}    
-{% endfor %}
-
-{% for sample in sample.brukers.all %}
-    {% if sample.ash %}
-    <li>
-        Ash({{ sample.date_pub }}) = {{ sample.ash }}
-    </li>
-    {% endif %}     
-{% endfor %}
-
-{% for sample in sample.brukers.all %}
-    {% if sample.moisture %}
-        <li>
-            Moisture({{ sample.date_pub }}) = {{ sample.moisture }}
-        </li>
-    {% endif %}
-{% endfor %}
-</p>
+    {% endfor %}
+</ul>

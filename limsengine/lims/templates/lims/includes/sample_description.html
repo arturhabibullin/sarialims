@@ -1,38 +1,39 @@
+<div>
+    Образец: {{ sample.sample }}
+</div>
+<div>
+    Дата производства: {{ sample.date_production }}
+</div>
+<div>
+    {{ sample.company }}
+</div>
+<div>
+    {{ sample.material_type }} - {{ sample.product }}
+</div>
 
-<ul>
-    {{ sample.sample }}
-    <li>
-        Дата производства: {{ sample.date_production }}
-    </li>
-    <li>
-        {{ sample.company }}
-    </li>
-    <li>
-        {{ sample.material_type }} {{ sample.product }}
-    </li>
-    
-    <li>
-        {% for category in sample.category.all %}
-                {{ category.name }}
-        {% endfor %}
-    </li>
-    
+<div>
+    {% for category in sample.category.all %}
+       <a href="{{ category.get_absolute_url }}" class="text-{{ sample.color.btn|default:'primary' }}">{{ category.name }}</a>
+    {% endfor %}
+</div>
+
+<div>
     {% if sample.bb_from or sample.bb_to  %}
-    <li>
-        Б.Б: {{ sample.bb_from|default_if_none:"" }} -
-        {{ sample.bb_to|default_if_none:"" }}
-    </li>
+        Б.Б: {{ sample.bb_from|default_if_none:"" }} - {{ sample.bb_to|default_if_none:"" }}
     {% endif %}
-        
-    
+</div>
+<div>
     {% if sample.pallet_from or sample.pallet_to  %}
-    <li>
-        паллеты: {{ sample.pallet_from|default_if_none:"" }} -
-        {{ sample.pallet_to|default_if_none:"" }}
-    </li>
+        паллеты: {{ sample.pallet_from|default_if_none:"" }} - {{ sample.pallet_to|default_if_none:"" }}
     {% endif %}
-        
-    <li>
-        {{ sample.date_registration }}
-    </li>
-</ul>
+</div>
+
+<div>
+    {% if sample.description %}
+        {{ sample.description }}
+    {% endif %}
+</div>
+
+<div>
+    Дата регистрации: {{ sample.date_registration }}
+</div>
