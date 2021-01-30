@@ -59,10 +59,21 @@ class Color(models.Model):
         verbose_name = 'Цвет этикетки'
         verbose_name_plural = 'Цвет этикетки'
 
+class WorkShift(models.Model):
+    value = models.IntegerField('смена')
+    
+    def __str__(self):
+        return str(self.value)
+        
+    class Meta:
+        verbose_name = 'Смена'
+        verbose_name_plural = 'Смена'
+
 class Sample(models.Model):
     sample = models.SlugField('образец', max_length=50, unique=True)
     color = models.ForeignKey(Color, on_delete=models.CASCADE, blank=True, null=True, verbose_name='цвет этикетки')
     date_production = models.DateField('дата производства')
+    work_shift = models.ForeignKey(WorkShift, on_delete=models.CASCADE, blank=True, null=True,verbose_name='смена')
     company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name='компания')
     material_type = models.ForeignKey(MaterialType, on_delete=models.CASCADE, verbose_name='вид образца')
     product = models.ForeignKey(ProductType, on_delete=models.CASCADE, verbose_name='продукт')
