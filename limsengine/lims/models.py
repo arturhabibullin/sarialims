@@ -42,8 +42,8 @@ class Category(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = 'Спецификация'
-        verbose_name_plural = 'Спецификация'
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категория'
 
 class Color(models.Model):
     text = models.CharField(max_length=50)
@@ -69,6 +69,28 @@ class WorkShift(models.Model):
         verbose_name = 'Смена'
         verbose_name_plural = 'Смена'
 
+class Specification(models.Model):
+    name = models.CharField(max_length=50,blank=True, null=True)
+    ffa_min = models.FloatField(blank=True, null=True, verbose_name='кислотное число мин. значение')
+    ffa_max = models.FloatField(blank=True, null=True, verbose_name='кислотное число макс. значение')
+    protein_min = models.FloatField(blank=True, null=True, verbose_name='протеин мин. значение')
+    protein_max = models.FloatField(blank=True, null=True, verbose_name='пртоеин макс. значение')
+    fat_min = models.FloatField(blank=True, null=True, verbose_name='жир мин. значение')
+    fat_max = models.FloatField(blank=True, null=True, verbose_name='жир макс. значение')
+    ash_min = models.FloatField(blank=True, null=True, verbose_name='зола мин. значение')
+    ash_max = models.FloatField(blank=True, null=True, verbose_name='зола макс. значение')
+    pv_min = models.FloatField(blank=True, null=True, verbose_name=' перекисное число мин. значение')
+    pv_max = models.FloatField(blank=True, null=True, verbose_name='перекисное число макс. значение')
+    aoks_min = models.FloatField(blank=True, null=True, verbose_name='антиоксидант мин. значение')
+    aoks_max = models.FloatField(blank=True, null=True, verbose_name='антиоксидант макс. значение')
+    
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Спецификация'
+        verbose_name_plural = 'Спецификация'
+
 class Sample(models.Model):
     sample = models.SlugField('образец', max_length=50, unique=True)
     color = models.ForeignKey(Color, on_delete=models.CASCADE, blank=True, null=True, verbose_name='цвет этикетки')
@@ -77,7 +99,7 @@ class Sample(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name='компания')
     material_type = models.ForeignKey(MaterialType, on_delete=models.CASCADE, verbose_name='вид образца')
     product = models.ForeignKey(ProductType, on_delete=models.CASCADE, verbose_name='продукт')
-    category = models.ManyToManyField(Category, blank=True, related_name='samples', verbose_name='спецификация')
+    category = models.ManyToManyField(Category, blank=True, related_name='samples', verbose_name='категория')
     bb_from = models.PositiveIntegerField('Б.Б с', blank=True, null=True)
     bb_to = models.PositiveIntegerField('Б.Б по', blank=True, null=True)
     pallet_from = models.PositiveIntegerField('паллеты с', blank=True, null=True)
@@ -87,6 +109,7 @@ class Sample(models.Model):
     repeate = models.BooleanField('повтор')
     claim = models.BooleanField('претензия')
     comment = models.TextField('комментарий', blank=True)
+    specification = models.ManyToManyField(Specification, blank=True,related_name='samples')
 
     def get_absolute_url(self):
         return reverse('sample_detail_url', kwargs={'pk': self.pk})
@@ -243,3 +266,4 @@ class Bruker(models.Model):
     class Meta:
         verbose_name = 'Спектрометр'
         verbose_name_plural = 'Спектрометр'
+
