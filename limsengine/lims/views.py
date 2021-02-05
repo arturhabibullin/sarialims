@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import *
 # Create your views here.
 def samples_list(request):
-    samples = Sample.objects.all()
+    samples = Sample.objects.all().order_by('-date_production')
     return render(request, 'lims/index.html', context={'samples': samples})
 
 def sample_detail(request, pk):

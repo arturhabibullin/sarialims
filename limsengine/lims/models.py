@@ -1,6 +1,7 @@
 from django.db import models
 from django.shortcuts import reverse
 
+
 # Create your models here.
 class Company(models.Model):
     name = models.CharField(max_length=50, unique=True, help_text='место отбора пробы')
@@ -113,6 +114,10 @@ class Sample(models.Model):
 
     def get_absolute_url(self):
         return reverse('sample_detail_url', kwargs={'pk': self.pk})
+
+    @property
+    def isoweekday(self):
+        return self.date_production.isoweekday()
 
     def __str__(self):
         return self.sample

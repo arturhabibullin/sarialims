@@ -2,7 +2,7 @@
     Образец: {{ sample.sample }}
 </div>
 <div>
-    Дата производства: {{ sample.date_production }}, партия: {{ sample.date_production|date:'W/w' }}
+    Дата производства: {{ sample.date_production }}, партия: {{sample.date_production|date:'W'}}/{{sample.isoweekday}}/{{sample.work_shift|default_if_none:""}}
 </div>
 <div>
     {{ sample.company }}
