@@ -47,11 +47,8 @@ class Category(models.Model):
         verbose_name_plural = 'Категория'
 
 class Color(models.Model):
-    text = models.CharField(max_length=50)
-    bg = models.CharField(max_length=50)
-    btn = models.CharField(max_length=50)
-
-    title = models.CharField(max_length=50,unique=True)
+    color = models.CharField(max_length=50, unique=True)
+    title = models.CharField(max_length=50,unique=True, verbose_name='цвет')
     
     def __str__(self):
         return self.title

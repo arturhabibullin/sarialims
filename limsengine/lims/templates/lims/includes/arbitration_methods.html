@@ -5,6 +5,10 @@
             <div>
                 FFA({{ sample.date_pub }}) = {{ sample.value }}
             </div>
+        {% elif sample.date_pub %}
+            <div> 
+                FFA({{ sample.date_pub }}) = analysis in progress
+            </div>
         {% endif %}        
     {% endfor %}
 
@@ -12,6 +16,10 @@
         {% if sample.value %}
             <div>
                 Protein({{ sample.date_pub }}) = {{ sample.value }}
+            </div>
+        {% elif sample.date_pub %}
+            <div> 
+                Protein({{ sample.date_pub }}) = analysis in progress
             </div>
         {% endif %}        
     {% endfor %}
@@ -21,6 +29,10 @@
             <div>
                 Fat({{ sample.date_pub }}) = {{ sample.value }}
             </div>
+        {% elif sample.date_pub %}
+            <div> 
+                Fat({{ sample.date_pub }}) = analysis in progress
+            </div>
         {% endif %}
     {% endfor %}
 
@@ -28,6 +40,10 @@
         {% if sample.value %}
             <div>
                 Ash({{ sample.date_pub }}) = {{ sample.value }}
+            </div>
+        {% elif sample.date_pub %}
+            <div> 
+                Ash({{ sample.date_pub }}) = analysis in progress
             </div>
         {% endif %}
     {% endfor %}
@@ -37,6 +53,10 @@
             <div>
                 Moisture({{ sample.date_pub }}) = {{ sample.value }}
             </div>
+        {% elif sample.date_pub %}
+            <div> 
+               Moisture({{ sample.date_pub }}) = analysis in progress
+            </div>
         {% endif %}
     {% endfor %}
 
@@ -44,6 +64,10 @@
         {% if sample.value %}
             <div>
                 Aoks({{ sample.date_pub }}) = {{ sample.value }}
+            </div>
+        {% elif sample.date_pub %}
+            <div> 
+                Aoks({{ sample.date_pub }}) = analysis in progress
             </div>
         {% endif %}
     {% endfor %}
