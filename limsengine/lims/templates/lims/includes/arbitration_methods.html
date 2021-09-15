@@ -5,6 +5,10 @@
             <div>
                 FFA({{ sample.date_pub }}) = {{ sample.value }}
             </div>
+        {% elif sample.date_time_result %}
+            <div> 
+                FFA({{ sample.date_pub }}) = waiting for {{ sample.date_time_result }}
+            </div>
         {% elif sample.date_pub %}
             <div> 
                 FFA({{ sample.date_pub }}) = analysis in progress
@@ -16,6 +20,10 @@
         {% if sample.value %}
             <div>
                 Protein({{ sample.date_pub }}) = {{ sample.value }}
+            </div>
+        {% elif sample.date_time_result %}
+            <div> 
+                Protein({{ sample.date_pub }}) = waiting for {{ sample.date_time_result }}
             </div>
         {% elif sample.date_pub %}
             <div> 
@@ -29,6 +37,10 @@
             <div>
                 Fat({{ sample.date_pub }}) = {{ sample.value }}
             </div>
+        {% elif sample.date_time_result %}
+            <div> 
+                Fat({{ sample.date_pub }}) = waiting for {{ sample.date_time_result }}
+            </div>
         {% elif sample.date_pub %}
             <div> 
                 Fat({{ sample.date_pub }}) = analysis in progress
@@ -40,6 +52,10 @@
         {% if sample.value %}
             <div>
                 Ash({{ sample.date_pub }}) = {{ sample.value }}
+            </div>
+        {% elif sample.date_time_result %}
+            <div> 
+               Ash({{ sample.date_pub }}) = waiting for {{ sample.date_time_result }}
             </div>
         {% elif sample.date_pub %}
             <div> 
@@ -53,6 +69,10 @@
             <div>
                 Moisture({{ sample.date_pub }}) = {{ sample.value }}
             </div>
+        {% elif sample.date_time_result %}
+            <div> 
+                Moisture({{ sample.date_pub }}) = waiting for {{ sample.date_time_result }}
+            </div>
         {% elif sample.date_pub %}
             <div> 
                Moisture({{ sample.date_pub }}) = analysis in progress
@@ -64,6 +84,10 @@
         {% if sample.value %}
             <div>
                 Aoks({{ sample.date_pub }}) = {{ sample.value }}
+            </div>
+        {% elif sample.date_time_result %}
+            <div> 
+                Aoks({{ sample.date_pub }}) = waiting for {{ sample.date_time_result }}
             </div>
         {% elif sample.date_pub %}
             <div> 

@@ -1,3 +1,8 @@
+
+{% if sample.photo %}
+  <img src="{{ sample.photo.url }}" class="card-img-top" alt="...">
+{% endif %}
+  
 <div class="card text-{{ sample.color.text|default:'white' }} bg-{{ sample.color.bg|default:'dark' }} mb-3">
     <div class="card-header">
       {% include 'lims/includes/sample_description.html' %}

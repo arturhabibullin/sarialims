@@ -18,13 +18,23 @@
 </div>
 
 <div>
-    {% if sample.bb_from or sample.bb_to  %}
+    
+    {% if sample.bb_from and sample.bb_to  %}
         Б.Б: {{ sample.bb_from|default_if_none:"" }} - {{ sample.bb_to|default_if_none:"" }}
+    {% elif sample.bb_from %}
+        Б.Б: {{ sample.bb_from|default_if_none:"" }}
+    {% elif sample.bb_to  %}
+        Б.Б: {{ sample.bb_to|default_if_none:"" }}
     {% endif %}
+
 </div>
 <div>
-    {% if sample.pallet_from or sample.pallet_to  %}
+    {% if sample.pallet_from and sample.pallet_to  %}
         паллеты: {{ sample.pallet_from|default_if_none:"" }} - {{ sample.pallet_to|default_if_none:"" }}
+    {% elif sample.pallet_from %}
+        паллеты: {{ sample.pallet_from|default_if_none:"" }} 
+    {% elif sample.pallet_to %}
+        паллеты: {{ sample.pallet_to|default_if_none:"" }}
     {% endif %}
 </div>
 

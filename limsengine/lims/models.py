@@ -14,17 +14,17 @@ class Company(models.Model):
         verbose_name_plural = 'Компания'
 
 class MaterialType(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50, unique=True, help_text='e.g мука, жир, шквара')
 
     def __str__(self):
         return self.name
 
     class Meta:
-        verbose_name = 'Тип образца'
-        verbose_name_plural = 'Тип образца'
+        verbose_name = 'Вид образца'
+        verbose_name_plural = 'Вид образца'
 
 class ProductType(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50, unique=True, help_text='e.g A, C,F, птичья, мясо-костная')
 
     def __str__(self):
         return self.name
@@ -34,7 +34,7 @@ class ProductType(models.Model):
         verbose_name_plural = 'Продукт'
 
 class Category(models.Model):
-    name = models.CharField(max_length=50, unique=True)
+    name = models.CharField(max_length=50, unique=True, help_text='НП, ВП, Mix')
 
     def get_absolute_url(self):
         return reverse('category_detail_url', kwargs={'pk': self.pk})
@@ -58,7 +58,7 @@ class Color(models.Model):
         verbose_name_plural = 'Цвет этикетки'
 
 class WorkShift(models.Model):
-    value = models.IntegerField('смена')
+    value = models.IntegerField('смена', unique=True)
     
     def __str__(self):
         return str(self.value)
@@ -95,8 +95,9 @@ class Sample(models.Model):
     date_production = models.DateField('дата производства')
     work_shift = models.ForeignKey(WorkShift, on_delete=models.CASCADE, blank=True, null=True,verbose_name='смена')
     company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name='компания')
-    material_type = models.ForeignKey(MaterialType, on_delete=models.CASCADE, verbose_name='вид образца')
-    product = models.ForeignKey(ProductType, on_delete=models.CASCADE, verbose_name='продукт')
+    production_line = models.BooleanField(blank=False,verbose_name='производственная линия')
+    material_type = models.ForeignKey(MaterialType, on_delete=models.CASCADE, verbose_name='вид образца', help_text='e.g мука, жир, шквара')
+    product = models.ForeignKey(ProductType, on_delete=models.CASCADE, verbose_name='продукт', help_text='e.g A, C, птичья, мясо-костная')
     category = models.ManyToManyField(Category, blank=True, related_name='samples', verbose_name='категория')
     bb_from = models.PositiveIntegerField('Б.Б с', blank=True, null=True)
     bb_to = models.PositiveIntegerField('Б.Б по', blank=True, null=True)
@@ -107,7 +108,8 @@ class Sample(models.Model):
     repeate = models.BooleanField('повтор')
     claim = models.BooleanField('претензия')
     comment = models.TextField('комментарий', blank=True)
-    specification = models.ManyToManyField(Specification, blank=True,related_name='samples')
+    photo = models.ImageField('фото', upload_to = 'magages/%Y/%m/%d/', blank=True)
+   
 
     def get_absolute_url(self):
         return reverse('sample_detail_url', kwargs={'pk': self.pk})
@@ -129,6 +131,8 @@ class FFA(models.Model):
     titrant_volume = models.FloatField('объем 0.1 Н KOH',blank=True, null=True)
     value = models.FloatField('кислотное число',blank=True, null=True,max_length=4)
     date_pub = models.DateTimeField(auto_now=True)
+    date_time_result = models.DateTimeField('дата и время результата', blank=True, null=True)
+    technical_information = models.CharField('тех. инфо', max_length=150, blank=True, help_text='для внутреннего использования')
 
     def __str__(self):
         return str(self.sample)
@@ -150,6 +154,9 @@ class Protein(models.Model):
     titrant_volume = models.FloatField('объем 0.2 М серной кислоты',blank=True, null=True)
     value = models.FloatField('массовая доля сырого протеина',blank=True, null=True,max_length=4)
     date_pub = models.DateTimeField(auto_now=True)
+    date_time_result = models.DateTimeField('дата и время результата', blank=True, null=True)
+    technical_information = models.CharField('тех. инфо', max_length=150, blank=True, help_text='для внутреннего использования')
+
 
     def __str__(self):
         return str(self.sample)
@@ -172,6 +179,8 @@ class Fat(models.Model):
     final_cup_mass = models.FloatField('масса стакана i', blank=True, null=True)
     value = models.FloatField('массовая доля сырого жира', blank=True, null=True)
     date_pub = models.DateTimeField('дата анализа', auto_now=True)
+    date_time_result = models.DateTimeField('дата и время результата', blank=True, null=True)
+    technical_information = models.CharField('тех. инфо', max_length=150, blank=True, help_text='для внутреннего использования')
     
     def __str__(self):
         return str(self.sample)
@@ -194,6 +203,9 @@ class Ash(models.Model):
     final_cup_mass = models.FloatField('масса тигля i', blank=True, null=True)
     value = models.FloatField('массовая доля сырой золы', blank=True, null=True)
     date_pub = models.DateTimeField('дата анализа', auto_now=True)
+    date_time_result = models.DateTimeField('дата и время результата', blank=True, null=True)
+    technical_information = models.CharField('тех. инфо', max_length=150, blank=True, help_text='для внутреннего использования')
+
     
     def __str__(self):
         return str(self.sample)
@@ -216,6 +228,8 @@ class Moisture(models.Model):
     final_cup_mass = models.FloatField('масса бюксы i', blank=True, null=True)
     value = models.FloatField('массовая доля влаги', blank=True, null=True)
     date_pub = models.DateTimeField('дата анализа', auto_now=True)
+    date_time_result = models.DateTimeField('дата и время результата', blank=True, null=True)
+    technical_information = models.CharField('тех. инфо', max_length=150, blank=True, help_text='для внутреннего использования')
     
     def __str__(self):
         return str(self.sample)
@@ -238,6 +252,8 @@ class Aoks(models.Model):
     bht = models.FloatField(blank=True, null=True)
     value = models.FloatField('суммарно bha/bht', blank=True, null=True)
     date_pub = models.DateTimeField('дата анализа', auto_now=True)
+    date_time_result = models.DateTimeField('дата и время результата', blank=True, null=True)
+    technical_information = models.CharField('тех. инфо', max_length=150, blank=True, help_text='для внутреннего использования')
     
     def __str__(self):
         return str(self.sample)
@@ -252,6 +268,17 @@ class Aoks(models.Model):
     class Meta:
         verbose_name = 'Антиоксидант'
         verbose_name_plural = 'Антиоксидант'
+
+# class PeroxideValue(models.Model):
+#     sample = models.ForeignKey(Sample, on_delete=models.CASCADE, verbose_name='образец', related_name='peroxideValue')
+#     sample_mass = models.FloatField('масса навески', blank=True, null=True)
+#     titrant_volume = models.FloatField('объем раб.Na2S2O3',blank=True, null=True)
+#     Na_Vol_for_work_sol = models.FloatField('объем раб.Na2S2O3',blank=True, null=True)
+#     vol_work_solution = models.FloatField('объем раб.Na2S2O3',blank=True, null=True)
+#     conc_work_solution = models.FloatField('объем раб.Na2S2O3',blank=True, null=True)
+#     K_vol_titr = models.FloatField('объем раб.Na2S2O3',blank=True, null=True)
+#     Na_con_vol_titr = models.FloatField('объем раб.Na2S2O3',blank=True, null=True)
+
 
 class Bruker(models.Model):
     sample = models.ForeignKey(Sample, on_delete=models.CASCADE, verbose_name='образец', related_name='brukers')
