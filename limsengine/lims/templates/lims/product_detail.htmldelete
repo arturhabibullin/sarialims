@@ -1,0 +1,22 @@
+{% extends 'main/base_main.html' %}
+
+{% block content %}
+
+    {% for item in sample %}
+    <div class="card mb-5">
+        <div class="card-header">
+        {{ item.sample }}
+        </div>
+        <div class="card-body">
+        <h5 class="card-title">{{ item.date_pub }}</h5>
+        <p class="card-text">
+            <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+        </p>
+        <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+    {% endfor %}
+        
+
+{% endblock content %}
+    

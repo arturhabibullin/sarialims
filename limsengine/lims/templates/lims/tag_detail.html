@@ -1,0 +1,7 @@
+{% extends 'lims/base_lims.html' %}
+
+{% block content %}
+    {% for sample in page_obj %}
+        {% include 'lims/includes/sample_card_template.html' %}
+    {% endfor %}
+{% endblock content %}

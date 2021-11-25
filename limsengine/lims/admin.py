@@ -1,19 +1,21 @@
 from django.contrib import admin
 from .models import *
 # Register your models here.
-admin.site.register(Category)
+admin.site.register(Tag)
 admin.site.register(Company)
-admin.site.register(MaterialType)
-admin.site.register(ProductType)
+admin.site.register(Material)
+admin.site.register(Product)
 admin.site.register(Bruker)
 admin.site.register(Color)
 admin.site.register(WorkShift)
 admin.site.register(Specification)
+admin.site.register(Milling)
+admin.site.register(MMP)
 class SampleAdmin(admin.ModelAdmin):
-    list_display = ('sample', 'date_production', 'company', 'material_type','product', 'get_categorys', 'bb_from', 'bb_to', 'pallet_from', 'pallet_to', 'date_registration','repeate', 'comment')
+    list_display = ('sample', 'date_production', 'company', 'material','product', 'get_tags', 'bb_from', 'bb_to', 'pallet_from', 'pallet_to', 'date_registration', 'comment')
     ordering = ['-date_registration']
-    def get_categorys(self, obj):
-        return "\n".join([p.name for p in obj.category.all()])
+    def get_tags(self, obj):
+        return "\n".join([p.name for p in obj.tags.all()])
 admin.site.register(Sample, SampleAdmin)
 
 class FFAAdmin(admin.ModelAdmin):
@@ -39,3 +41,4 @@ admin.site.register(Moisture, MoistureAdmin)
 class AoksAdmin(admin.ModelAdmin):
     list_display = ('sample', 'sample_mass', 'bha', 'bht', 'value', 'date_pub')
 admin.site.register(Aoks, AoksAdmin)
+

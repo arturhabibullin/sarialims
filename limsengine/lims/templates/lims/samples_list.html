@@ -1,0 +1,20 @@
+{% extends 'lims/base_lims.html' %}
+
+{% block title %}
+    blockname
+{% endblock title %}
+
+{% block navbar %}
+    {% for company in companys %}
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{{ company.get_absolute_url }}">{{ company.name }}</a>
+        </li>
+    {% endfor %}
+{% endblock navbar %}
+
+{% block content %}
+  {% for sample in page_obj %}
+    {% include 'lims/includes/sample_card_template.html' %}
+  {% endfor %}
+{% endblock content %}
+  

@@ -1,19 +1,26 @@
 <div>
     Образец: {{ sample.sample }}
 </div>
+
 <div>
     Дата производства: {{ sample.date_production }}, партия: {{sample.date_production|date:'W'}}/{{sample.isoweekday}}/{{sample.work_shift|default_if_none:""}}
 </div>
+
 <div>
-    {{ sample.company }}
-</div>
-<div>
-    {{ sample.material_type }} - {{ sample.product }}
+    <a href="{{ sample.company.get_absolute_url }}">{{ sample.company }}</a>
 </div>
 
 <div>
-    {% for category in sample.category.all %}
-       <a href="{{ category.get_absolute_url }}" class="text-{{ sample.color.btn|default:'primary' }}">{{ category.name }}</a>
+    <a href="{% url 'company_product_url' company=sample.company.slug product=sample.product.slug %}">{{ sample.product }}</a>
+</div>
+
+<div>
+    <a href="{% url 'company_product_material_url' company=sample.company.slug product=sample.product.slug material=sample.material.slug %}">{{ sample.material }}</a>
+</div>
+
+<div>
+    {% for tag in sample.tags.all %}
+       <a href="{% url 'company_product_material_tag_url' company=sample.company.slug product=sample.product.slug material=sample.material.slug tag=tag.slug %}">{{ tag.name }}</a>
     {% endfor %}
 </div>
 

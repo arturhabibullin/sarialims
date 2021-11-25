@@ -1,0 +1,17 @@
+{% extends 'lims/base_lims.html' %}
+{% block navbar %}
+    {{ block.super }}
+{% endblock navbar %}
+    
+
+{% block content %}
+
+
+    {% for sample in samples %}
+        {% include 'lims/includes/sample_card_template.html' %}
+    {% endfor %}
+
+        
+            
+
+{% endblock content %}

@@ -4,13 +4,7 @@
         {% if sample.value %}
             <div>
                 FFA({{ sample.date_pub }}) = {{ sample.value }}
-            </div>
-        {% elif sample.date_time_result %}
-            <div> 
-                FFA({{ sample.date_pub }}) = waiting for {{ sample.date_time_result }}
-            </div>
         {% elif sample.date_pub %}
-            <div> 
                 FFA({{ sample.date_pub }}) = analysis in progress
             </div>
         {% endif %}        
@@ -20,13 +14,7 @@
         {% if sample.value %}
             <div>
                 Protein({{ sample.date_pub }}) = {{ sample.value }}
-            </div>
-        {% elif sample.date_time_result %}
-            <div> 
-                Protein({{ sample.date_pub }}) = waiting for {{ sample.date_time_result }}
-            </div>
         {% elif sample.date_pub %}
-            <div> 
                 Protein({{ sample.date_pub }}) = analysis in progress
             </div>
         {% endif %}        
@@ -36,13 +24,7 @@
         {% if sample.value %}
             <div>
                 Fat({{ sample.date_pub }}) = {{ sample.value }}
-            </div>
-        {% elif sample.date_time_result %}
-            <div> 
-                Fat({{ sample.date_pub }}) = waiting for {{ sample.date_time_result }}
-            </div>
         {% elif sample.date_pub %}
-            <div> 
                 Fat({{ sample.date_pub }}) = analysis in progress
             </div>
         {% endif %}
@@ -52,13 +34,7 @@
         {% if sample.value %}
             <div>
                 Ash({{ sample.date_pub }}) = {{ sample.value }}
-            </div>
-        {% elif sample.date_time_result %}
-            <div> 
-               Ash({{ sample.date_pub }}) = waiting for {{ sample.date_time_result }}
-            </div>
         {% elif sample.date_pub %}
-            <div> 
                 Ash({{ sample.date_pub }}) = analysis in progress
             </div>
         {% endif %}
@@ -68,30 +44,32 @@
         {% if sample.value %}
             <div>
                 Moisture({{ sample.date_pub }}) = {{ sample.value }}
-            </div>
-        {% elif sample.date_time_result %}
-            <div> 
-                Moisture({{ sample.date_pub }}) = waiting for {{ sample.date_time_result }}
-            </div>
         {% elif sample.date_pub %}
-            <div> 
                Moisture({{ sample.date_pub }}) = analysis in progress
             </div>
         {% endif %}
     {% endfor %}
 
     {% for sample in sample.aoks.all %}
+        {% if sample.bha and sample.bht %}
+              
+                    
+                        <p>Aoks({{ sample.date_pub }}):bha={{ sample.bha }}; bht={{ sample.bht }}; sum={{ sample.value }}</p>
+                        {% elif sample.bha %}
+                            <p>Aoks({{ sample.date_pub }}) bha={{ sample.bha }}</p>
+                        {% elif sample.bht %}
+                            <p>Aoks({{ sample.date_pub }}) bht={{ sample.bht }}</p>
+                        {% elif sample.date_pub%}
+                            <p>Aoks({{ sample.date_pub }}) = analysis in progress</p>
+                  
+               
+        {% endif %}
+    {% endfor %}
+
+    {% for sample in sample.mmps.all %}
         {% if sample.value %}
             <div>
-                Aoks({{ sample.date_pub }}) = {{ sample.value }}
-            </div>
-        {% elif sample.date_time_result %}
-            <div> 
-                Aoks({{ sample.date_pub }}) = waiting for {{ sample.date_time_result }}
-            </div>
-        {% elif sample.date_pub %}
-            <div> 
-                Aoks({{ sample.date_pub }}) = analysis in progress
+                ММП({{ sample.date_pub }}) = {{ sample.value }}
             </div>
         {% endif %}
     {% endfor %}

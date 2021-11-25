@@ -1,0 +1,21 @@
+{% extends 'lims/base_lims.html' %}
+
+
+{% block navbar %}
+
+{% for tag in tags %}
+    <li class="nav-item">
+        <a class="nav-link active" aria-current="page" href="{% url 'company_product_material_tag_url' company=company.slug product=product.slug material=material.slug tag=tag.slug %}">{{ tag.name }}</a>
+    </li>
+{% endfor %}
+    
+{% endblock navbar %}
+    
+
+{% block content %}
+
+{% for sample in page_obj %}
+{% include 'lims/includes/sample_card_template.html' %}
+{% endfor %}
+
+{% endblock content %}
