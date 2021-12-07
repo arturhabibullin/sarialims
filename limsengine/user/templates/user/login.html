@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+    <h1 class="text-center mb-5">Login</h1>
+
+    <form action="{% url 'login_url' %}" method="post">
+        {% csrf_token %}
+
+        
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-danger mt-1">
+                {{ error }}
+            </div>
+        {% endfor %}
+        
+        
+        {% for field in form %}
+            <div class="forms-group">
+                {{ field.label }}
+                {{ field }}
+            </div>
+
+            
+            {% if field.errors %}
+                <div class="alert alert-danger">
+                    {{ field.errors }}
+                </div>
+            {% endif %}
+                
+
+        {% endfor %}
+        <button type="submit" class="btn btn-success mt-3">Login</button>
+    </form>
+{% endblock content %}
+    

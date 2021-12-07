@@ -3,8 +3,11 @@ from django.views.generic import View
 from django.shortcuts import get_object_or_404
 from .models import *
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
+
+
+@login_required(login_url='login_url')
 def company_detail(request, slug):
     company = Company.objects.get(slug=slug)
     samples = company.sample_set.all()
@@ -32,6 +35,8 @@ def company_detail(request, slug):
     }
     return render(request, 'lims/company_detail.html', context)
 
+
+@login_required(login_url='login_url')
 def tags_list(request):
     tags = Tag.objects.all()
     context = {
@@ -39,7 +44,7 @@ def tags_list(request):
     }
     return render(request, 'lims/tags_list.html', context)
 
-
+@login_required(login_url='login_url')
 def tag_detail(request, slug):
     tag = Tag.objects.get(slug=slug)
     samples = tag.samples.all()
@@ -73,7 +78,7 @@ def tag_detail(request, slug):
 #         'sample':sample
 #     }
 #     return render(request, 'lims/product_detail.html', context)
-
+@login_required(login_url='login_url')
 def samples_list(request):
     samples = Sample.objects.all()
     paginator = Paginator(samples, 3)
@@ -98,6 +103,8 @@ def samples_list(request):
     }
     return render(request, 'lims/samples_list.html', context)
 
+
+@login_required(login_url='login_url')
 def sample_detail(request, sample):
     sample = Sample.objects.get(sample=sample)
     company = sample.company
@@ -111,6 +118,7 @@ def sample_detail(request, sample):
     }
     return render(request, 'lims/sample_detail.html', context)
 
+@login_required(login_url='login_url')
 def company_product(request,company, product):
     company = Company.objects.get(slug=company)
     product = Product.objects.get(slug=product)
@@ -165,7 +173,7 @@ def company_product(request,company, product):
 #         'company':company,
 #     }
 #     return render(request, 'lims/company_tag.html', context)
-
+@login_required(login_url='login_url')
 def company_product_material(request, company, product, material):
     company = Company.objects.get(slug=company)
     product = Product.objects.get(slug=product)
@@ -193,11 +201,10 @@ def company_product_material(request, company, product, material):
         'next_url':next_url,
         'prev_url': prev_url,
         'tags':tags,
-
-
     }
     return render(request, 'lims/company_product_material.html', context)
-
+    
+@login_required(login_url='login_url')
 def company_product_material_tag(request, company, product, material, tag):
     company = Company.objects.get(slug=company)
     product = Product.objects.get(slug=product)
@@ -223,4 +230,6 @@ def company_product_material_tag(request, company, product, material, tag):
         'prev_url': prev_url,
     }
     return render(request, 'lims/company_product_material_tag.html', context)
+
+
 
